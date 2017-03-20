@@ -1,0 +1,10 @@
+/*
+ * Basic Scala configuration
+ */
+apply plugin: 'scala-base'
+
+// Setting compiler arguments
+tasks.withType(ScalaCompile) {
+    options.encoding = 'utf-8'
+    options.compilerArgs = ['-implicit:none', '-Xlint:-options', '-Xlint:unchecked']
+}

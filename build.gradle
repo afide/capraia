@@ -1,0 +1,46 @@
+description = 'A sample multi-project layout for Tendermint applications'
+/*
+ * Root-project only configuration
+ */
+apply from: 'settings/dependencies.gradle'
+apply from: 'settings/groups.gradle'
+apply from: 'settings/ide-eclipse.gradle'
+apply from: 'settings/ide-idea.gradle'
+apply plugin: 'project-report'
+/*
+ * Common configuration for all projects
+ */
+allprojects {
+    defaultTasks 'assemble'
+    configurations.all {
+        resolutionStrategy {
+            // Cache dynamic versions for $project.capraia.ttl seconds
+            cacheDynamicVersionsFor project.capraia.ttl, 'seconds'
+            cacheChangingModulesFor project.capraia.ttl, 'seconds'
+        }
+    }
+    // We care mostly about the dependency report for projects that actually publish something to the repository
+    project.plugins.withType( BasePlugin.class) {
+        project.apply plugin: 'project-report'
+    }
+    repositories {
+        mavenCentral()
+    }
+}
+/*
+ * Build script configuration
+ */
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath(
+            'com.google.protobuf:protobuf-gradle-plugin:0.8.1@jar',
+            'com.google.gradle:osdetector-gradle-plugin:1.4.0@jar',
+            'com.google.guava:guava:18.0@jar',
+            'commons-lang:commons-lang:2.6@jar',
+            'kr.motd.maven:os-maven-plugin:1.5.0.Final@jar',
+        )
+    }
+}

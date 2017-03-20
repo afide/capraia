@@ -1,0 +1,15 @@
+description = 'Stand alone applications'
+/*
+ * Project domain specific configuration
+ */
+subprojects {
+    apply from: "$project.rootDir/settings/java-app.gradle"
+    apply from: "$project.rootDir/settings/groovy.gradle"
+    dependencies {
+        compile(
+                project(":modules:$project.rootProject.name-server"),
+                project.capraia.modules.cli,
+        )
+        testCompile project.capraia.modules.spock
+    }
+}

@@ -1,0 +1,22 @@
+/*
+ * Basic Java configuration
+ */
+apply plugin: 'java-base'
+
+// Set Java source and target compatibility
+project.sourceCompatibility = 1.8
+project.targetCompatibility = 1.8
+
+// Adding support for @Nullable/@NonNull
+dependencies {
+    compile 'com.intellij:annotations:12.0@jar'
+}
+
+// Setting compiler arguments
+tasks.withType(JavaCompile) { JavaCompile compile ->
+    compile.options.debug = true
+    compile.options.encoding = 'utf-8'
+    compile.options.compilerArgs = [
+            '-implicit:none', '-Xlint:-options', '-Xlint:unchecked',
+    ]
+}

@@ -1,0 +1,17 @@
+/*
+ * Common configuration for Protobuf projects
+ */
+apply plugin: 'com.google.protobuf'
+
+protobuf {
+    protoc {
+        // The artifact spec for the Protobuf Compiler
+        artifact = project.capraia.modules.protoc
+//		path = "$project.rootDir/common/bin/protoc"
+    }
+//	generateProtoTasks {
+//		all().each { task ->
+//			task.dependsOn project.rootProject.tasks.copyExternalDependencies
+//		}
+//	}
+}

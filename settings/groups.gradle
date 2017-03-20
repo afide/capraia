@@ -1,0 +1,16 @@
+/*
+ * Group ids
+ */
+configure(allprojects - warProjects()) {
+    group = "com.capraia.afide.${project.rootProject.name}"
+}
+// Common configurations for WAR projects
+configure(warProjects()) {
+    group = "com.capraia.web.foo.${project.rootProject.name}"
+}
+/*
+ * Helper methods
+ */
+def warProjects() {
+    subprojects.findAll { project -> project.name.startsWith('foo') }
+}

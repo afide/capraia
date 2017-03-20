@@ -1,0 +1,3 @@
+description = "The $project.name application"
+
+project.mainClassName = 'com.github.afide.app.Counter'

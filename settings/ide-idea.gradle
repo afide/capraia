@@ -1,0 +1,15 @@
+/*
+ * Common configurations for generating IDEA workspace files
+ */
+apply plugin: 'idea'
+project.tasks.idea.dependsOn project.tasks.cleanIdea
+
+project.plugins.withType( WarPlugin) {
+    idea {
+        module {
+            scopes.COMPILE.plus += configurations.providedCompile
+            scopes.RUNTIME.plus += configurations.providedRuntime
+            scopes.RUNTIME.minus += configurations.providedCompile
+        }
+    }
+}

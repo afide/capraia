@@ -1,0 +1,25 @@
+/* Need to register my string converters at the very beginning */
+String.metaClass.toProjectName  = { -> projectNameConverter(delegate)   }
+
+rootProject.name = 'capraia'
+
+checkProjectDirs 'modules'
+checkProjectDirs 'applications'
+
+/* Helper methods */
+def checkProjectDirs(String domain) {
+    new File(rootDir, domain).eachDirMatch ~/^[a-z].*/, { addModule domain, it }
+}
+def addModule(String domain, File moduleDir) {
+    if(!new File(moduleDir, 'build.gradle').exists()) {
+        return
+    }
+    def path = ":$domain:" + moduleDir.name.toProjectName()
+    path = domain != 'tests' ? path : "$path-test"
+    include(path)
+    project(path).projectDir = moduleDir
+}
+/* My string converter implementations */
+def projectNameConverter( orig) {
+    orig.replaceAll('(is-?|cmp-?|mws-?|^)(.*)', '$1-' + rootProject.name + '-$2').replaceAll('^-|-$','').replaceAll('--','-')
+}
