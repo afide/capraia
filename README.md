@@ -3,6 +3,10 @@ A sample multi-project layout for [Tendermint](https://tendermint.com) applicati
 #### Prerequisites
 Gradle runs on all major operating systems and requires only a Java JDK version 8 or higher to be installed.
 To check, run `java -version`
+### Get the Sources
+```
+$ git clone --recursive https://github.com/afide/capraia
+```
 #### Displays the Project Structure
 ```
 $ ./gradlew projects
