@@ -52,15 +52,15 @@ public class SimpleModel<T extends IByteable> extends TxModel {
 
     @Override public boolean validate(byte[] tx) {
         if (tx.length == 0) {
-            logger.warn("Received empty tx value.");
+            logger.warn("Received empty tx value");
             return false;
         }
         try {
             IByteable value = getBytable(tx);
-            logger.info("Validated tx value '" + value.toPrettyString() + "'.");
+            logger.info("Validated tx value {}", value.toPrettyString());
             return true;
         } catch (ArithmeticException e) {
-            logger.warn("Invalid transaction value, got exception: " + e.getLocalizedMessage());
+            logger.warn("Invalid transaction value, got exception: {}", e.getLocalizedMessage());
             return false;
         }
     }
@@ -68,7 +68,7 @@ public class SimpleModel<T extends IByteable> extends TxModel {
     @Override public boolean deliver(byte[] tx) {
         if (validate(tx)) {
             updated = tree.add(getBytable(tx));
-            logger.info("New tree is now " + tree.toPrettyString() + ".");
+            logger.info("New tree is now {}", tree.toPrettyString());
             return true;
         }
         return false;
@@ -87,7 +87,7 @@ public class SimpleModel<T extends IByteable> extends TxModel {
         try {
             return classOfT.getDeclaredConstructor(new Class[]{byte[].class}).newInstance((Object) tx);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            logger.warn("Unable to instantiate bytable type, got exception: " + e.getLocalizedMessage());
+            logger.warn("Unable to instantiate bytable type, got exception: {}", e.getLocalizedMessage());
         }
         return null;
     }

@@ -62,7 +62,7 @@ public abstract class Application implements ABCIAPI {
         if (txModel.setOption(req.getKey(), req.getValue())) {
             return Types.ResponseSetOption.newBuilder().build();
         } else {
-            return Types.ResponseSetOption.newBuilder().setLog("Got a bad value or cannot access field named '" + req.getKey() + "'.").build();
+            return Types.ResponseSetOption.newBuilder().setLog("Got a bad value or cannot access field named '" + req.getKey() + "'").build();
         }
     }
 
@@ -81,10 +81,10 @@ public abstract class Application implements ABCIAPI {
         byte[] tx = req.getTx().toByteArray();
         logger.info("Received tx value: " + byteArrayToHexSring(tx));
         if (txModel.validate(tx)) {
-            message = "Sending OK.";
+            message = "Sending OK";
             return Types.ResponseCheckTx.newBuilder().setCode(Types.CodeType.OK).setLog(message).build();
         } else {
-            message = "Invalid nonce. Expected " + txModel + ", got " + byteArrayToHexSring(tx) + ".";
+            message = "Invalid nonce; expected " + txModel + ", got " + byteArrayToHexSring(tx);
             return Types.ResponseCheckTx.newBuilder().setCode(Types.CodeType.BadNonce).setLog(message).build();
         }
     }
@@ -95,10 +95,10 @@ public abstract class Application implements ABCIAPI {
         byte[] tx = req.getTx().toByteArray();
         logger.debug("Received tx value: " + byteArrayToHexSring(tx));
         if (txModel.deliver(tx)) {
-            message = "Delivered.";
+            message = "Delivered";
             return Types.ResponseDeliverTx.newBuilder().setCode(Types.CodeType.OK).setLog(message).build();
         } else {
-            message = "Invalid nonce. Expected " + txModel + ", got " + byteArrayToHexSring(tx) + ".";
+            message = "Invalid nonce; expected " + txModel + ", got " + byteArrayToHexSring(tx);
             return Types.ResponseDeliverTx.newBuilder().setCode(Types.CodeType.BadNonce).setLog(message).build();
         }
     }
@@ -110,15 +110,15 @@ public abstract class Application implements ABCIAPI {
 
         switch (query) {
             case "hash":
-                message = "Current hash txModel is now: " + lastBlockHeight + ".";
+                message = "Current hash txModel is now: " + lastBlockHeight;
                 logger.debug(message);
                 return Types.ResponseQuery.newBuilder().setCode(Types.CodeType.OK).setLog(message).build();
             case "tx":
-                message = "Current tx is now: " + txModel + ".";
+                message = "Current tx is now: " + txModel;
                 logger.debug(message);
                 return Types.ResponseQuery.newBuilder().setCode(Types.CodeType.OK).setLog(message).build();
             default:
-                message = "Invalid nonce. Expected 'hash' or 'tx', got '" + query + "'.";
+                message = "Invalid nonce; expected 'hash' or 'tx', got '" + query + "'";
                 return Types.ResponseQuery.newBuilder().setCode(Types.CodeType.BadNonce).setLog(message).build();
         }
     }

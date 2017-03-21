@@ -34,10 +34,10 @@ public abstract class TxModel {
                 }
             }
         } catch (NoSuchFieldException e) {
-            logger.error("Field with name '" + key + "' does not exist.");
+            logger.error("Field with name '{}' does not exist.", key);
             return false;
         } catch (IllegalAccessException e) {
-            logger.error("Cannot access field with name '" + key + "'.");
+            logger.error("Cannot access field with name '{}'.", key);
             return false;
         }
         return false;

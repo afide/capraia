@@ -41,29 +41,26 @@ public class CounterModel extends TxModel {
 
     @Override public boolean validate(byte[] tx) {
         if (tx.length == 0) {
-            logger.warn("Received empty tx value.");
+            logger.warn("Received empty tx value");
             return false;
         } else if (tx.length <= Long.BYTES) {
             long txValue = new BigInteger(1, tx).longValueExact();
-            if (serial && txValue != txCount) {
-                logger.warn("Invalid transaction value. Expected " + txCount + ", got " + txValue + ".");
-                return false;
-            } else if (txValue < txCount) {
-                logger.warn("Invalid transaction value. Expected " + txCount + ", got " + txValue + ".");
+            if ((serial && txValue != txCount) || txValue < txCount) {
+                logger.warn("Invalid transaction value; expected {}, got {}", txCount, txValue);
                 return false;
             }
         } else {
-            logger.warn("Received bad tx value.");
+            logger.warn("Received bad tx value");
             return false;
         }
-        logger.info("Received tx value is valid.");
+        logger.info("Received tx value is valid");
         return true;
     }
 
     @Override public boolean deliver(byte[] tx) {
         if (validate(tx)) {
-            this.txCount += 1;
-            logger.info("New tx count is now " + this.txCount + ".");
+            txCount += 1;
+            logger.info("New tx count is now {}", txCount);
             return true;
         }
         return false;

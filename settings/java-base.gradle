@@ -2,6 +2,7 @@
  * Basic Java configuration
  */
 apply plugin: 'java-base'
+apply plugin: 'jacoco'
 
 // Set Java source and target compatibility
 project.sourceCompatibility = 1.8
