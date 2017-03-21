@@ -1,8 +1,9 @@
 language: java
 sudo: false # run on container-based infrastructure
+install: true
 jdk:
   - oraclejdk8
-script: ./gradlew --no-daemon build
+script: ./gradlew --no-daemon sonarqube
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -12,3 +13,10 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+    - $HOME/.sonar/cache/
+    - .gradle
+addons:
+  sonarqube:
+    organization: 'afide'
+    token:
+      secure: 'b44b8ee515071e0be85dff14b536a12f112a461f'

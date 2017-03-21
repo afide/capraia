@@ -1,4 +1,27 @@
-description = 'A sample multi-project layout for Tendermint applications'
+/*
+ * Build script configuration
+ */
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath(
+                'com.google.protobuf:protobuf-gradle-plugin:0.8.1@jar',
+                'com.google.gradle:osdetector-gradle-plugin:1.4.0@jar',
+                'com.google.guava:guava:18.0@jar',
+                'commons-lang:commons-lang:2.6@jar',
+                'kr.motd.maven:os-maven-plugin:1.5.0.Final@jar',
+        )
+    }
+}
+/*
+ * Plugins configurations
+ */
+plugins {
+    id 'project-report'
+    id 'org.sonarqube' version '2.2'
+}
 /*
  * Root-project only configuration
  */
@@ -6,7 +29,6 @@ apply from: 'settings/dependencies.gradle'
 apply from: 'settings/groups.gradle'
 apply from: 'settings/ide-eclipse.gradle'
 apply from: 'settings/ide-idea.gradle'
-apply plugin: 'project-report'
 /*
  * Common configuration for all projects
  */
@@ -25,22 +47,5 @@ allprojects {
     }
     repositories {
         mavenCentral()
-    }
-}
-/*
- * Build script configuration
- */
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath(
-            'com.google.protobuf:protobuf-gradle-plugin:0.8.1@jar',
-            'com.google.gradle:osdetector-gradle-plugin:1.4.0@jar',
-            'com.google.guava:guava:18.0@jar',
-            'commons-lang:commons-lang:2.6@jar',
-            'kr.motd.maven:os-maven-plugin:1.5.0.Final@jar',
-        )
     }
 }
