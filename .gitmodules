@@ -1,8 +1,0 @@
-[submodule "modules/jabci"]
-	path = modules/jabci
-	url = https://github.com/afide/jabci
-	branch = master
-[submodule "modules/merkletree"]
-	path = modules/merkletree
-	url = https://github.com/afide/MerkleTree
-	branch = master
