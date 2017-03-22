@@ -35,7 +35,7 @@ public abstract class Application implements ABCIAPI {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 Thread.sleep(1000L);
-            } catch (InterruptedException  e) {
+            } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 logger.info("...finished application: {}", e);
             }
@@ -80,7 +80,9 @@ public abstract class Application implements ABCIAPI {
         logger.debug("Request check tx");
         String message;
         byte[] tx = req.getTx().toByteArray();
-        logger.info("Received tx value: {}", byteArrayToHexSring(tx));
+        if (logger.isInfoEnabled()) {
+            logger.info("Received tx value: {}", byteArrayToHexSring(tx));
+        }
         if (txModel.validate(tx)) {
             message = "Sending OK";
             return Types.ResponseCheckTx.newBuilder().setCode(Types.CodeType.OK).setLog(message).build();
@@ -94,7 +96,9 @@ public abstract class Application implements ABCIAPI {
         logger.debug("Received deliver tx");
         String message;
         byte[] tx = req.getTx().toByteArray();
-        logger.debug("Received tx value: " + byteArrayToHexSring(tx));
+        if (logger.isDebugEnabled()) {
+            logger.debug("Received tx value: " + byteArrayToHexSring(tx));
+        }
         if (txModel.deliver(tx)) {
             message = "Delivered";
             return Types.ResponseDeliverTx.newBuilder().setCode(Types.CodeType.OK).setLog(message).build();
@@ -149,7 +153,9 @@ public abstract class Application implements ABCIAPI {
         logger.debug("Request begin block");
 
         lastBlockHash = req.getHash().toByteArray();
-        logger.debug("hash={}", byteArrayToHex(lastBlockHash));
+        if (logger.isDebugEnabled()) {
+            logger.debug("hash={}", byteArrayToHex(lastBlockHash));
+        }
         return Types.ResponseBeginBlock.newBuilder().build();
     }
 
@@ -157,7 +163,9 @@ public abstract class Application implements ABCIAPI {
         logger.debug("Request end block");
 
         lastBlockHeight = req.getHeight();
-        logger.debug("hash={} height={}", byteArrayToHex(lastBlockHash), lastBlockHeight);
+        if (logger.isDebugEnabled()) {
+            logger.debug("hash={} height={}", byteArrayToHex(lastBlockHash), lastBlockHeight);
+        }
         return Types.ResponseEndBlock.newBuilder().build();
     }
 }
