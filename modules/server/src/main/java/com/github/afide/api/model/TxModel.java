@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
  */
 public abstract class TxModel {
 
-    protected final static Logger logger = LoggerFactory.getLogger(TxModel.class);
+    protected static final Logger logger = LoggerFactory.getLogger(TxModel.class);
 
     public abstract boolean validate(byte[] tx);
 
@@ -25,19 +25,19 @@ public abstract class TxModel {
         try {
             Field field = this.getClass().getDeclaredField(key);
             if (field.getType().equals(boolean.class)) {
-                if (value.equalsIgnoreCase("on") || value.equalsIgnoreCase("yes") || value.equalsIgnoreCase("true")) {
+                if ("on".equalsIgnoreCase(value) || "yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value)) {
                     field.setBoolean(this, true);
                     return true;
-                } else if (value.equalsIgnoreCase("off") || value.equalsIgnoreCase("no") || value.equalsIgnoreCase("false")) {
+                } else if ("off".equalsIgnoreCase(value) || "no".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
                     field.setBoolean(this, false);
                     return true;
                 }
             }
         } catch (NoSuchFieldException e) {
-            logger.error("Field with name '{}' does not exist.", key);
+            logger.error("Field with name '{}' does not exist: {}", key, e);
             return false;
         } catch (IllegalAccessException e) {
-            logger.error("Cannot access field with name '{}'.", key);
+            logger.error("Cannot access field with name '{}': {}", key, e);
             return false;
         }
         return false;

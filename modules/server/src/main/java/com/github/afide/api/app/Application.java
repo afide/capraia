@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class Application implements ABCIAPI {
 
-    private final static Logger logger = LoggerFactory.getLogger(Application.class);
+    private static final Logger logger = LoggerFactory.getLogger(Application.class);
     protected static String version;
 
     private TxModel txModel;
@@ -32,11 +32,12 @@ public abstract class Application implements ABCIAPI {
         socket.registerListener(this);
 
         new Thread(socket::start).start();
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-                logger.info("...finished application.");
+            } catch (InterruptedException  e) {
+                Thread.currentThread().interrupt();
+                logger.info("...finished application: {}", e);
             }
         }
     }
@@ -79,7 +80,7 @@ public abstract class Application implements ABCIAPI {
         logger.debug("Request check tx");
         String message;
         byte[] tx = req.getTx().toByteArray();
-        logger.info("Received tx value: " + byteArrayToHexSring(tx));
+        logger.info("Received tx value: {}", byteArrayToHexSring(tx));
         if (txModel.validate(tx)) {
             message = "Sending OK";
             return Types.ResponseCheckTx.newBuilder().setCode(Types.CodeType.OK).setLog(message).build();
@@ -148,7 +149,7 @@ public abstract class Application implements ABCIAPI {
         logger.debug("Request begin block");
 
         lastBlockHash = req.getHash().toByteArray();
-        logger.debug("hash=" + byteArrayToHex(lastBlockHash));
+        logger.debug("hash={}", byteArrayToHex(lastBlockHash));
         return Types.ResponseBeginBlock.newBuilder().build();
     }
 
@@ -156,7 +157,7 @@ public abstract class Application implements ABCIAPI {
         logger.debug("Request end block");
 
         lastBlockHeight = req.getHeight();
-        logger.debug("hash=" + byteArrayToHex(lastBlockHash) + " height=" + lastBlockHeight);
+        logger.debug("hash={} height={}", byteArrayToHex(lastBlockHash), lastBlockHeight);
         return Types.ResponseEndBlock.newBuilder().build();
     }
 }

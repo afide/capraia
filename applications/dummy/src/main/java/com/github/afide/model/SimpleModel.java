@@ -38,8 +38,12 @@ public class SimpleModel<T extends IByteable> extends TxModel {
     }
 
     @Override public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         SimpleModel tree1 = (SimpleModel) o;
 
