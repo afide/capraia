@@ -20,7 +20,7 @@ buildscript {
  */
 plugins {
     id 'project-report'
-    id 'org.sonarqube' version '2.2'
+    id 'org.sonarqube' version '2.2.1'
 }
 /*
  * Root-project only configuration
