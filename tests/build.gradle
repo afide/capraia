@@ -39,6 +39,14 @@ subprojects {
         integTestCompile capraia.modules.spock
     }
     /*
+     * Make Sonar aware of the new source set
+     */
+    sonarqube {
+        properties {
+            property 'sonar.tests', project.sourceSets.integTest.groovy.srcDirs
+        }
+    }
+    /*
      * Make Eclipe aware of the added configuration
      */
     eclipse {

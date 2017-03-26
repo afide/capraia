@@ -23,6 +23,16 @@ plugins {
     id 'org.sonarqube' version '2.2.1'
 }
 /*
+ * Sonar configuration
+ */
+sonarqube {
+    properties {
+        property 'sonar.host.url', 'https://sonarqube.com'
+        property 'sonar.organization', 'afide'
+        property 'sonar.login', 'b44b8ee515071e0be85dff14b536a12f112a461f'
+    }
+}
+/*
  * Root-project only configuration
  */
 description = 'A sample multi-project layout for Tendermint applications.'
