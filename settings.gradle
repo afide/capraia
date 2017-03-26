@@ -5,6 +5,7 @@ rootProject.name = 'capraia'
 
 checkProjectDirs 'modules'
 checkProjectDirs 'applications'
+checkProjectDirs 'tests'
 
 /* Helper methods */
 def checkProjectDirs(String domain) {

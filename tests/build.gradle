@@ -1,0 +1,49 @@
+description = 'Inter-module level integration tests'
+/*
+ * Project domain specific configuration
+ */
+subprojects {
+    apply from: "$project.rootDir/settings/java-base.gradle"
+    apply from: "$project.rootDir/settings/groovy-base.gradle"
+    apply from: "$project.rootDir/settings/ide-eclipse.gradle"
+	apply from: "$project.rootDir/settings/ide-idea.gradle"
+    /*
+     * Add integTest source set etc.
+     */
+    sourceSets {
+        integTest
+    }
+    configurations {
+        integTestCompile
+        integTestRuntime {
+            visible = true
+            extendsFrom integTestCompile
+        }
+    }
+    /*
+     * Add integration test task
+     */
+    task integTest(type: Test) {
+        description = 'Runs the integration tests.'
+        group = JavaBasePlugin.VERIFICATION_GROUP
+        testClassesDir = sourceSets.integTest.output.classesDir
+        classpath = sourceSets.integTest.runtimeClasspath
+
+        systemProperty 'node', System.getProperty('node')
+    }
+    project.tasks.assemble.dependsOn integTestClasses
+    /*
+     * Common integration test dependencies
+     */
+    dependencies {
+        integTestCompile capraia.modules.spock
+    }
+    /*
+     * Make Eclipe aware of the added configuration
+     */
+    eclipse {
+        classpath {
+            plusConfigurations += [project.configurations.integTestRuntime]
+        }
+    }
+}

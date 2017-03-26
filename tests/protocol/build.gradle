@@ -1,0 +1,12 @@
+description = 'Low-level protocol integration tests'
+
+dependencies {
+    integTestCompile(
+            project.capraia.modules.slf4j.api,
+            project.capraia.modules.httpbuilder.api,
+    )
+    integTestRuntime(
+            project.capraia.modules.slf4j.impl,
+            project.capraia.modules.httpbuilder.impl,
+    )
+}

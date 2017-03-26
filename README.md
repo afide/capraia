@@ -5,12 +5,13 @@ A sample multi-project layout for [Tendermint](https://tendermint.com) applicati
 [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.capraia.afide.capraia:capraia)](https://sonarqube.com/dashboard/index/com.capraia.afide.capraia:capraia)
 
 #### Prerequisites
-Gradle runs on all major operating systems and requires only a Java JDK version 8 or higher to be installed.
-To check, run `java -version`
+This project requires a Java JDK version 8 or higher to be installed.
+To check, run `javac -version`
 
 #### Get the Sources
 ```
 $ git clone --recursive https://github.com/afide/capraia
+$ git submodule foreach -q --recursive 'branch="$(git config -f $toplevel/.gitmodules submodule.$name.branch)"; git checkout $branch'
 ```
 
 #### Displays the Project Structure

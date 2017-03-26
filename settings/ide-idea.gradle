@@ -7,9 +7,9 @@ project.tasks.idea.dependsOn project.tasks.cleanIdea
 project.plugins.withType( WarPlugin) {
     idea {
         module {
-            scopes.COMPILE.plus += configurations.providedCompile
-            scopes.RUNTIME.plus += configurations.providedRuntime
-            scopes.RUNTIME.minus += configurations.providedCompile
+            scopes.COMPILE.plus += project.configurations.providedCompile
+            scopes.RUNTIME.plus += project.configurations.providedRuntime
+            scopes.RUNTIME.minus += project.configurations.providedCompile
         }
     }
 }

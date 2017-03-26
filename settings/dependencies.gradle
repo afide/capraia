@@ -36,6 +36,7 @@ capraia.modules.slf4j = [
     impl : [
 		capraia.modules.log4j,
         'org.slf4j:slf4j-log4j12:1.7.7@jar',
+		'xml-apis:xml-apis:1.4.01@jar',
     ],
 ]
 capraia.modules.cli = [
@@ -49,4 +50,25 @@ capraia.modules.spock = [
     capraia.modules.groovy,
     capraia.modules.junit,
     capraia.modules.objenesis,
+]
+capraia.modules.httpcomponents = [
+    'org.apache.httpcomponents:httpclient:4.2.1@jar',
+    'org.apache.httpcomponents:httpcore:4.2.1@jar',
+    'commons-logging:commons-logging:1.1.3@jar',
+]
+capraia.modules.httpbuilder = [
+    api : [
+        'org.codehaus.groovy.modules.http-builder:http-builder:0.6@jar',
+        capraia.modules.httpcomponents,
+    ],
+    impl : [
+        'nekohtml:nekohtml:1.9.6.2@jar',
+        'net.sf.json-lib:json-lib:2.3:jdk15@jar',
+        'net.sf.ezmorph:ezmorph:1.0.6@jar',
+        'xerces:xercesImpl:2.11.0@jar',
+        'xml-resolver:xml-resolver:1.2@jar',
+        'commons-collections:commons-collections:3.2.1@jar',
+        'commons-beanutils:commons-beanutils:1.8.0@jar',
+        'commons-lang:commons-lang:2.4@jar',
+    ]
 ]
