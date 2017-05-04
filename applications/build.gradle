@@ -12,4 +12,31 @@ subprojects {
         )
         testCompile project.capraia.modules.spock
     }
+    run {
+        doFirst {
+            project.logger.info("$path ({})", Thread.currentThread())
+        }
+    }
+    task runAsync(type:RunAsyncTask, group:'application', dependsOn: project.tasks.classes) {
+        description = 'Kicks of this project as a JVM application and continues task execution.'
+        doLast {
+            project.logger.info("$path Waiting for startup to complete.")
+            Thread.currentThread().sleep(5*1000)
+        }
+    }
+}
+
+class RunAsyncTask extends DefaultTask {
+    java.util.concurrent.ExecutorService executor = java.util.concurrent.Executors.newFixedThreadPool(2)
+    @TaskAction def run() {
+        executor.execute({
+            try {
+                project.logger.info("$path Submitting task $project.tasks.run.path asynchronously.")
+                project.tasks.run.execute()
+            }
+            catch (TaskExecutionException e) {
+                project.logger.info("$path Task '$project.tasks.run.path' interrupted.")
+            }
+        } as Runnable)
+    }
 }
