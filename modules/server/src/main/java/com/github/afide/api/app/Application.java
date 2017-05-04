@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  * A generic app implementation.
  * @author tglaeser
  */
-public abstract class Application implements ABCIAPI {
+public abstract class Application implements ABCIAPI, Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
     protected static String version;
@@ -26,20 +26,6 @@ public abstract class Application implements ABCIAPI {
 
     protected Application(TxModel txModel) {
         this.txModel = txModel;
-        logger.info("Starting application...");
-
-        TSocket socket = new TSocket();
-        socket.registerListener(this);
-
-        new Thread(socket::start).start();
-        while (!Thread.currentThread().isInterrupted()) {
-            try {
-                Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                logger.info("...finished application: {}", e);
-            }
-        }
     }
 
     private static String byteArrayToHexSring(byte[] bytes) {
@@ -167,5 +153,22 @@ public abstract class Application implements ABCIAPI {
             logger.debug("hash={} height={}", byteArrayToHex(lastBlockHash), lastBlockHeight);
         }
         return Types.ResponseEndBlock.newBuilder().build();
+    }
+
+    @Override public void run() {
+        logger.info("Starting application...");
+
+        TSocket socket = new TSocket();
+        socket.registerListener(this);
+        socket.start();
+
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                logger.info("...finished application: {}", e);
+            }
+        }
     }
 }

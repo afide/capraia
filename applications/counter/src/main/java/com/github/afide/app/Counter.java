@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 /**
  * The counter app implementation.
+ *
  * @author tglaeser
  */
 public class Counter extends Application implements ABCIAPI {
@@ -20,6 +21,6 @@ public class Counter extends Application implements ABCIAPI {
         Logger rootLogger = org.apache.log4j.Logger.getRootLogger();
         rootLogger.setLevel(Level.INFO);
 
-        new Counter(true);
+        new Counter(true).run();
     }
 }
