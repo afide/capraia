@@ -1,0 +1,5 @@
+description = 'Ethereum integration tests'
+
+dependencies {
+    integTestCompile project.capraia.modules.web3
+}
