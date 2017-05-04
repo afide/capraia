@@ -11,6 +11,7 @@ To check, run `javac -version`
 #### Get the Sources
 ```
 $ git clone --recursive https://github.com/afide/capraia
+$ cd ./capraia
 $ git submodule foreach -q --recursive 'branch="$(git config -f $toplevel/.gitmodules submodule.$name.branch)"; git checkout $branch'
 ```
 
