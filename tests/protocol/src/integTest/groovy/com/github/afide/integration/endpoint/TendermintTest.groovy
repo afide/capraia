@@ -1,6 +1,6 @@
-package com.capraia.integration.endpoint
+package com.github.afide.integration.endpoint
 
-import com.capraia.integration.extension.Node
+import com.github.afide.integration.extension.Node
 import groovyx.net.http.ContentType
 import groovyx.net.http.HttpResponseDecorator
 import groovyx.net.http.RESTClient

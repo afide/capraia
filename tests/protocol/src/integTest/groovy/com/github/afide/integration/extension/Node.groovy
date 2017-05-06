@@ -1,4 +1,4 @@
-package com.capraia.integration.extension
+package com.github.afide.integration.extension
 
 import org.spockframework.runtime.extension.ExtensionAnnotation
 

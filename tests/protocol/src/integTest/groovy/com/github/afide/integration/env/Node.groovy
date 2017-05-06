@@ -1,4 +1,4 @@
-package com.capraia.integration.env
+package com.github.afide.integration.env
 node {
     name = 'default'
     host {

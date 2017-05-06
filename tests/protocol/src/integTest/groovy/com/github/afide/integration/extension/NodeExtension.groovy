@@ -1,4 +1,4 @@
-package com.capraia.integration.extension
+package com.github.afide.integration.extension
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -34,7 +34,7 @@ class NodeInterceptor extends AbstractMethodInterceptor {
     private final FieldInfo field
 
     static {
-        config = new ConfigSlurper(System.getProperty('node')).parse(com.capraia.integration.env.Node.class)
+        config = new ConfigSlurper(System.getProperty('node')).parse(com.github.afide.integration.env.Node.class)
         logger.info("Environment End Point: $config.node.name\n")
     }
 

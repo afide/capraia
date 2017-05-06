@@ -1,4 +1,4 @@
-package com.capraia.integration.ethereum
+package com.github.afide.integration.ethereum
 
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.methods.response.Web3ClientVersion
