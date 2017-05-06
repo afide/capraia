@@ -47,7 +47,7 @@ public abstract class Application implements ABCIAPI, Runnable {
     @Override public Types.ResponseSetOption requestSetOption(Types.RequestSetOption req) {
         logger.debug("Request set option");
         if (txModel.setOption(req.getKey(), req.getValue())) {
-            return Types.ResponseSetOption.newBuilder().build();
+            return Types.ResponseSetOption.newBuilder().setLog("Successfully updated field named '" + req.getKey() + "'").build();
         } else {
             return Types.ResponseSetOption.newBuilder().setLog("Got a bad value or cannot access field named '" + req.getKey() + "'").build();
         }

@@ -1,0 +1,5 @@
+description = 'Tendermint integration tests'
+
+dependencies {
+    integTestCompile project(":modules:$project.rootProject.name-server")
+}
