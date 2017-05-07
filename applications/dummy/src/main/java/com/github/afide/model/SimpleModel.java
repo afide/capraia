@@ -1,5 +1,6 @@
 package com.github.afide.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.afide.api.model.TxModel;
 import com.github.jtmsp.merkletree.IMerkleTree;
 import com.github.jtmsp.merkletree.MerkleTree;
@@ -18,11 +19,11 @@ public class SimpleModel<T extends IByteable> extends TxModel {
     /**
      * If set to true, the state across app restarts shall be persisted.
      */
-    protected boolean persist = false;
+    @JsonProperty protected boolean persist;
     /**
      * If true, the tree was not extended but updated.
      */
-    protected boolean updated;
+    @JsonProperty protected boolean updated;
     /**
      * The Merkle tree.
      */
@@ -100,7 +101,7 @@ public class SimpleModel<T extends IByteable> extends TxModel {
         try {
             return classOfT.getDeclaredConstructor(new Class[]{byte[].class}).newInstance((Object) tx);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            logger.warn("Unable to instantiate bytable type, got exception: {}", e);
+            logger.warn("Unable to instantiate bytable type, got exception: " + e);
         }
         return null;
     }

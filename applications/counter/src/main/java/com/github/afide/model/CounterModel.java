@@ -1,5 +1,6 @@
 package com.github.afide.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.afide.api.model.TxModel;
 
 import java.math.BigInteger;
@@ -16,7 +17,7 @@ public class CounterModel extends TxModel {
     /* If true, new value of tx n must be consecutive compared to the value from tx n-1. */
     public boolean serial = false;
 
-    private long txCount = 0;
+    @JsonProperty private long txCount = 0;
 
     public CounterModel(boolean serial) {
         this.serial = serial;

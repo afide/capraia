@@ -24,7 +24,7 @@ public class Dummy extends Application implements ABCIAPI {
 
     static { version = "0.1"; }
 
-    private Dummy(SimpleModel<? extends IByteable> tree) {
+    protected Dummy(SimpleModel<? extends IByteable> tree) {
         super(tree);
     }
 

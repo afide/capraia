@@ -8,7 +8,7 @@ import spock.lang.Unroll
  * System under specification: {@link CounterModel}.
  * @author tglaeser
  */
-class CountTest extends Specification {
+class CounterModelTest extends Specification {
 
     @Shared String[] sources = [
             'on', 'yes', 'true',

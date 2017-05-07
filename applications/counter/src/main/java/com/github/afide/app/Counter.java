@@ -15,7 +15,7 @@ public class Counter extends Application implements ABCIAPI {
 
     static { version = "0.1"; }
 
-    private Counter(boolean serial) { super(new CounterModel(serial)); }
+    protected Counter(boolean serial) { super(new CounterModel(serial)); }
 
     public static void main(String[] args) {
         Logger rootLogger = org.apache.log4j.Logger.getRootLogger();

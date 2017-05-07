@@ -1,10 +1,12 @@
 package com.github.afide.api.app;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.afide.api.model.TxModel;
 import com.github.jtendermint.jabci.api.ABCIAPI;
 import com.github.jtendermint.jabci.socket.TSocket;
 import com.github.jtendermint.jabci.types.Types;
-import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +20,12 @@ public abstract class Application implements ABCIAPI, Runnable {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
     protected static String version;
 
-    private TxModel txModel;
-    private transient TSocket tSocket = new TSocket();
+    @JsonProperty private TxModel txModel;
 
-    private transient long lastBlockHeight = 0;
-    private transient byte[] lastBlockHash = new byte[]{};
-    private transient byte[] lastAppHash = new byte[]{};
+    private long lastBlockHeight = 0;
+    private byte[] lastBlockHash = new byte[]{};
+    private byte[] lastAppHash = new byte[]{};
+    private TSocket tSocket = new TSocket();
 
     protected Application(TxModel txModel) { this.txModel = txModel; }
 
@@ -54,7 +56,13 @@ public abstract class Application implements ABCIAPI, Runnable {
 
     @Override public Types.ResponseInfo requestInfo(Types.RequestInfo req) {
         logger.debug("Request info");
-        String data = new Gson().toJson(this);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String data = null;
+        try {
+            data = objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            logger.error("Unable to serialize data field, got exception: " + e);
+        }
         Types.ResponseInfo.Builder responseBuilder = Types.ResponseInfo.newBuilder();
         responseBuilder.setVersion(version).setLastBlockHeight(lastBlockHeight).setLastBlockAppHash(ByteString.copyFrom(lastAppHash));
         responseBuilder.setData(data);
@@ -169,7 +177,7 @@ public abstract class Application implements ABCIAPI, Runnable {
     protected void keepalive() {
         while (!txModel.stop) {
             try {
-                Thread.currentThread().sleep(1000L);
+                Thread.sleep(1000L);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }

@@ -4,6 +4,6 @@ dependencies {
     compile(
             project(":modules:$project.rootProject.name-jabci"),
             project(":modules:$project.rootProject.name-merkletree"),
-            project.capraia.modules.gson,
+            project.capraia.modules.jackson,
     )
 }
