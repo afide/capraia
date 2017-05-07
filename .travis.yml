@@ -15,8 +15,3 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.sonar/cache/
     - .gradle
-addons:
-  sonarqube:
-    organization: 'afide'
-    token:
-      secure: 'b44b8ee515071e0be85dff14b536a12f112a461f'
