@@ -19,14 +19,13 @@ public abstract class Application implements ABCIAPI, Runnable {
     protected static String version;
 
     private TxModel txModel;
+    private transient TSocket tSocket = new TSocket();
 
     private transient long lastBlockHeight = 0;
     private transient byte[] lastBlockHash = new byte[]{};
     private transient byte[] lastAppHash = new byte[]{};
 
-    protected Application(TxModel txModel) {
-        this.txModel = txModel;
-    }
+    protected Application(TxModel txModel) { this.txModel = txModel; }
 
     private static String byteArrayToHexSring(byte[] bytes) {
         return "0x" + byteArrayToHex(bytes);
@@ -157,17 +156,22 @@ public abstract class Application implements ABCIAPI, Runnable {
 
     @Override public void run() {
         logger.info("Starting application...");
+        tSocket.registerListener(this);
+        tSocket.start();
+    }
 
-        TSocket socket = new TSocket();
-        socket.registerListener(this);
-        socket.start();
+    protected void shutdown() {
+        logger.info("Initiated shutdown...");
+        tSocket.shutdown();
+        logger.info("...waiting for clients to disconnect");
+    }
 
-        while (!Thread.currentThread().isInterrupted()) {
+    protected void keepalive() {
+        while (!txModel.stop) {
             try {
-                Thread.sleep(1000L);
+                Thread.currentThread().sleep(1000L);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                logger.info("...finished application: {}", e);
             }
         }
     }

@@ -13,6 +13,8 @@ public abstract class TxModel {
 
     protected static final Logger logger = LoggerFactory.getLogger(TxModel.class);
 
+    public volatile boolean stop = false;
+
     public abstract boolean validate(byte[] tx);
 
     public abstract boolean deliver(byte[] tx);
@@ -23,7 +25,7 @@ public abstract class TxModel {
 
     public boolean setOption(String key, String value) {
         try {
-            Field field = this.getClass().getDeclaredField(key);
+            Field field = this.getClass().getField(key);
             if (field.getType().equals(boolean.class)) {
                 if ("on".equalsIgnoreCase(value) || "yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value)) {
                     field.setBoolean(this, true);

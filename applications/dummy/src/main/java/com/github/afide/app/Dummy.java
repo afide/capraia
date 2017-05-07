@@ -52,7 +52,10 @@ public class Dummy extends Application implements ABCIAPI {
         } else if (options.debug) {
             rootLogger.setLevel(Level.DEBUG);
         }
-        new Dummy(tree).run();
+        Dummy dummy = new Dummy(tree);
+        new Thread(dummy).start();
+        dummy.keepalive();
+        dummy.shutdown();
     }
 
     private static void printVersion() {

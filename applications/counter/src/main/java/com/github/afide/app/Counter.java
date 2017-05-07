@@ -21,6 +21,9 @@ public class Counter extends Application implements ABCIAPI {
         Logger rootLogger = org.apache.log4j.Logger.getRootLogger();
         rootLogger.setLevel(Level.INFO);
 
-        new Counter(true).run();
+        Counter counter = new Counter(true);
+        new Thread(counter).start();
+        counter.keepalive();
+        counter.shutdown();
     }
 }

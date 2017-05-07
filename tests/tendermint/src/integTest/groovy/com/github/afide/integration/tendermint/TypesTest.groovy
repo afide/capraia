@@ -18,6 +18,19 @@ class TypesTest extends Specification {
         inputStream.resetSizeCounter()
     }
 
+    def "test echo"() {
+        when: 'request echo gets send'
+        Types.RequestEcho requestEcho = Types.RequestEcho.newBuilder().setMessage('xx').build()
+        Types.Request request = Types.Request.newBuilder().setEcho(requestEcho).build()
+        sendRequest(request)
+
+        Types.ResponseEcho responseEcho = readResonse().getEcho()
+        String result = responseEcho.message
+
+        then: 'the response echo is equal to the request echo'
+        'xx' == result
+    }
+
     def "test set option"() {
         when: 'request set option gets send'
         Types.RequestSetOption requestSetOption = Types.RequestSetOption.newBuilder().setKey('serial').setValue('true').build()
@@ -31,17 +44,17 @@ class TypesTest extends Specification {
         "Successfully updated field named 'serial'" == result
     }
 
-    def "test echo"() {
-        when: 'request echo gets send'
-        Types.RequestEcho requestEcho = Types.RequestEcho.newBuilder().setMessage('xx').build()
-        Types.Request request = Types.Request.newBuilder().setEcho(requestEcho).build()
+    def "test shutdown"() {
+        when: 'request set option gets send'
+        Types.RequestSetOption requestSetOption = Types.RequestSetOption.newBuilder().setKey('stop').setValue('true').build()
+        Types.Request request = Types.Request.newBuilder().setSetOption(requestSetOption).build()
         sendRequest(request)
 
-        Types.ResponseEcho responseEcho = readResonse().getEcho()
-        String result = responseEcho.message
+        Types.ResponseSetOption responseSetOption = readResonse().getSetOption()
+        String result = responseSetOption.getLog()
 
-        then: 'the response echo is equal to the request echo'
-        'xx' == result
+        then: 'the response set option does not log any error'
+        "Successfully updated field named 'stop'" == result
     }
 
     /**
