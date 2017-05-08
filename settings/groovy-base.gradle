@@ -2,7 +2,6 @@
  * Basic Groovy configuration
  */
 apply plugin: 'groovy-base'
-apply plugin: 'jacoco'
 apply plugin: 'codenarc'
 
 // Setting compiler arguments
