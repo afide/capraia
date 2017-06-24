@@ -3,7 +3,7 @@ description = 'Product modules'
  * Project domain specific configuration
  */
 subprojects {
-    apply from: "$project.rootDir/settings/java.gradle"
+    apply from: "$project.rootDir/settings/groovy.gradle"
     dependencies {
         testCompile project.capraia.modules.junit
     }

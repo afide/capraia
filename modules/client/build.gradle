@@ -1,0 +1,65 @@
+description = "The $project.name module"
+
+sourceSets {
+    testFixture {
+        java {
+            compileClasspath += sourceSets.main.output
+        }
+    }
+    testFixtureTest {
+        java {
+            compileClasspath += sourceSets.main.output
+            runtimeClasspath += sourceSets.main.output
+        }
+    }
+}
+
+configurations {
+    testFixtureCompile.extendsFrom compile
+    testFixtureRuntime {
+        visible = true
+        extendsFrom runtime
+    }
+    testFixtureTestCompile.extendsFrom testFixtureCompile
+    testFixtureTestRuntime.extendsFrom testFixtureRuntime
+    testCompile.extendsFrom testFixtureCompile
+    testRuntime.extendsFrom testFixtureRuntime
+}
+
+dependencies {
+    testFixtureCompile(
+        project.capraia.modules.spock,
+        project.capraia.modules.slf4j.api,
+    )
+    testFixtureRuntime project.capraia.modules.slf4j.impl
+    testFixtureTestCompile sourceSets.testFixture.output
+    testCompile sourceSets.testFixture.output
+}
+
+task jarTestFixture(type: Jar) {
+    from sourceSets.testFixture.output
+    appendix = 'test'
+}
+tasks.assemble.dependsOn jarTestFixture
+
+artifacts {
+    testFixtureRuntime(jarTestFixture) { type = 'test' }
+    archives(jarTestFixture) { type = 'test' }
+}
+
+task testFixtureTest(type:Test) {
+    description = "Testing the 'testFixture' source set."
+    testClassesDir = project.sourceSets.testFixtureTest.output.classesDir
+    classpath = project.sourceSets.testFixtureTest.runtimeClasspath
+}
+
+test {
+    dependsOn testFixtureTest
+    doFirst {
+        workingDir new File( buildDir, 'worker'); workingDir.mkdirs()
+    }
+}
+
+eclipse { //TODO :: Without this, this project has build path issues in Eclipe IDE, needs more investigation
+    new File( buildDir, 'resources/testFixture').mkdirs()
+}

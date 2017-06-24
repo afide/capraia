@@ -22,5 +22,5 @@ def addModule(String domain, File moduleDir) {
 }
 /* My string converter implementations */
 def projectNameConverter( orig) {
-    orig.replaceAll('(is-?|cmp-?|mws-?|^)(.*)', '$1-' + rootProject.name + '-$2').replaceAll('^-|-$','').replaceAll('--','-')
+    orig.replaceAll('(foo-?|bar-?|^)(.*)', '$1-' + rootProject.name + '-$2').replaceAll('^-|-$','').replaceAll('--','-')
 }
