@@ -25,7 +25,7 @@ class CounterTest extends Specification {
         Types.ResponseEcho res = app.requestEcho(req)
 
         then: 'we receive a valid response'
-        'xx' == res.message
+        res.message == 'xx'
     }
 
     def "test set option"() {
@@ -36,7 +36,7 @@ class CounterTest extends Specification {
         Types.ResponseSetOption res = app.requestSetOption(req)
 
         then: 'we receive a valid response'
-        "Successfully updated field named 'serial'" == res.log
+        res.log == "Successfully updated field named 'serial'"
     }
 
     def "test info"() {
