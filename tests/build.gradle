@@ -5,7 +5,6 @@ description = 'Inter-module level integration tests'
 subprojects {
     apply from: "$project.rootDir/settings/java-base.gradle"
     apply from: "$project.rootDir/settings/groovy-base.gradle"
-    apply from: "$project.rootDir/settings/ide-eclipse.gradle"
 	apply from: "$project.rootDir/settings/ide-idea.gradle"
     /*
      * Add integTest source set etc.
@@ -44,14 +43,6 @@ subprojects {
     sonarqube {
         properties {
             property 'sonar.tests', project.sourceSets.integTest.groovy.srcDirs
-        }
-    }
-    /*
-     * Make Eclipe aware of the added configuration
-     */
-    eclipse {
-        classpath {
-            plusConfigurations += [project.configurations.integTestRuntime]
         }
     }
 }

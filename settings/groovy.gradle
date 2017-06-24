@@ -4,8 +4,5 @@
 apply plugin: 'groovy'
 apply from: "$project.rootDir/settings/groovy-base.gradle"
 
-// Generating Eclipse workspace files for JDT projects
-apply from: "$project.rootDir/settings/ide-eclipse.gradle"
-
 // Generating IDEA workspace files
 apply from: "$project.rootDir/settings/ide-idea.gradle"

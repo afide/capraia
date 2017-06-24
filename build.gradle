@@ -38,7 +38,6 @@ sonarqube {
 description = 'A sample multi-project layout for Tendermint applications.'
 apply from: 'settings/dependencies.gradle'
 apply from: 'settings/groups.gradle'
-apply from: 'settings/ide-eclipse.gradle'
 apply from: 'settings/ide-idea.gradle'
 /*
  * Common configuration for all projects

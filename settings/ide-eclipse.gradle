@@ -1,5 +1,0 @@
-/*
- * Common configurations for generating Eclipse workspace files for JDT projects
- */
-apply plugin: 'eclipse'
-project.tasks.eclipse.dependsOn project.tasks.cleanEclipse

@@ -59,7 +59,3 @@ test {
         workingDir new File( buildDir, 'worker'); workingDir.mkdirs()
     }
 }
-
-eclipse { //TODO :: Without this, this project has build path issues in Eclipe IDE, needs more investigation
-    new File( buildDir, 'resources/testFixture').mkdirs()
-}
