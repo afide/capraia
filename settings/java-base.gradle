@@ -14,3 +14,9 @@ tasks.withType(AbstractCompile) { AbstractCompile compile ->
     compile.options.encoding = 'utf-8'
     compile.options.compilerArgs = ['-implicit:none', '-Xlint:-options', '-Xlint:unchecked']
 }
+
+// Configuring JaCoCo reporting
+tasks.withType(JacocoReport) { JacocoReport jacocoTestReport ->
+    jacocoTestReport.reports.xml.enabled = true
+    project.tasks.check.dependsOn jacocoTestReport
+}
