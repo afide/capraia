@@ -35,7 +35,7 @@ subprojects {
      * Common integration test dependencies
      */
     dependencies {
-        integTestCompile capraia.modules.spock.compile
+        integTestCompile project.capraia.modules.spock.compile
     }
     /*
      * Make Sonar aware of the new source set

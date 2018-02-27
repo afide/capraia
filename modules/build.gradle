@@ -6,5 +6,6 @@ subprojects {
     apply from: "$project.rootDir/settings/groovy.gradle"
     dependencies {
         testCompile project.capraia.modules.junit
+        testRuntime project.capraia.modules.hamcrest
     }
 }

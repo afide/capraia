@@ -9,11 +9,12 @@ ext {
     ]
 }
 capraia.modules += [
-    bouncycastle : 'org.bouncycastle:bcprov-jdk15on:1.56@jar',
+    bouncycastle : 'org.bouncycastle:bcprov-jdk15on:1.57@jar',
     guava : 'com.google.guava:guava:21.0@jar',
     groovy : 'org.codehaus.groovy:groovy-all:2.4.12@jar',
+    hamcrest : 'org.hamcrest:hamcrest-core:1.2@jar',
     jackson : 'com.fasterxml.jackson.core:jackson-databind:2.8.5',
-    junit : 'junit:junit:4.10@jar',
+    junit : 'junit:junit:4.11@jar',
     log4j : 'log4j:log4j:1.2.17@jar',
     mockito : 'org.mockito:mockito-all:1.9.5@jar',
     protobuf : 'com.google.protobuf:protobuf-java:3.5.1@jar',
