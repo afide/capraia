@@ -4,7 +4,7 @@ A sample multi-project layout for [Tendermint](https://tendermint.com) applicati
 [![Build Status](https://travis-ci.org/afide/capraia.svg?branch=master)](https://travis-ci.org/afide/capraia)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.capraia.afide.capraia:capraia&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.capraia.afide.capraia:capraia)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.capraia.afide.capraia:capraia&metric=coverage)](https://sonarcloud.io/dashboard?id=com.capraia.afide.capraia:capraia)
-[![Codecov](https://codecov.io/gh/afide/capraia/branch/master/graph/badge.svg)](https://codecov.io/gh/afide/capraia)
+[![Codecov](https://codecov.io/gh/tglaeser/capraia/branch/master/graph/badge.svg)](https://codecov.io/gh/tglaeser/capraia)
 
 #### Prerequisites
 This project requires a Java JDK version 8 or higher to be installed.
