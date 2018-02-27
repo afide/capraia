@@ -9,10 +9,8 @@ project.sourceCompatibility = 1.8
 project.targetCompatibility = 1.8
 
 // Setting compiler arguments
-tasks.withType(JavaCompile) { JavaCompile compile ->
+tasks.withType(AbstractCompile) { AbstractCompile compile ->
     compile.options.debug = true
     compile.options.encoding = 'utf-8'
-    compile.options.compilerArgs = [
-            '-implicit:none', '-Xlint:-options', '-Xlint:unchecked',
-    ]
+    compile.options.compilerArgs = ['-implicit:none', '-Xlint:-options', '-Xlint:unchecked']
 }

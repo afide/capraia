@@ -1,12 +1,6 @@
 /*
  * Basic Groovy configuration
  */
+apply from: "$project.rootDir/settings/java-base.gradle"
 apply plugin: 'groovy-base'
-apply plugin: 'jacoco'
 apply plugin: 'codenarc'
-
-// Setting compiler arguments
-tasks.withType(GroovyCompile) {
-    options.encoding = 'utf-8'
-    options.compilerArgs = ['-implicit:none', '-Xlint:-options', '-Xlint:unchecked']
-}

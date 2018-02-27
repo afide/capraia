@@ -1,8 +1,0 @@
-/*
- * Common configuration for Scala projects
- */
-apply plugin: 'scala'
-apply from: "$project.rootDir/settings/scala-base.gradle"
-
-// Generating IDEA workspace files
-apply from: "$project.rootDir/settings/ide-idea.gradle"
