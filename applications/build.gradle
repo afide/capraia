@@ -10,7 +10,7 @@ subprojects {
                 project(":modules:$project.rootProject.name-server"),
                 project.capraia.modules.cli,
         )
-        testCompile project.capraia.modules.spock
+        testCompile project.capraia.modules.spock.compile
     }
     run {
         doFirst {

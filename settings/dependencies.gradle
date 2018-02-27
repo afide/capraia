@@ -11,13 +11,12 @@ ext {
 capraia.modules += [
     bouncycastle : 'org.bouncycastle:bcprov-jdk15on:1.56@jar',
     guava : 'com.google.guava:guava:21.0@jar',
-    groovy : 'org.codehaus.groovy:groovy-all:2.4.7@jar',
+    groovy : 'org.codehaus.groovy:groovy-all:2.4.12@jar',
     jackson : 'com.fasterxml.jackson.core:jackson-databind:2.8.5',
     junit : 'junit:junit:4.10@jar',
     log4j : 'log4j:log4j:1.2.17@jar',
     mockito : 'org.mockito:mockito-all:1.9.5@jar',
-    objenesis : 'org.objenesis:objenesis:1.2@jar',
-    protobuf : 'com.google.protobuf:protobuf-java:3.2.0@jar',
+    protobuf : 'com.google.protobuf:protobuf-java:3.5.1@jar',
     protoc : 'com.google.protobuf:protoc:3.2.0',
     web3 : 'org.web3j:core:2.1.0',
 ]
@@ -45,12 +44,15 @@ capraia.modules.cli = [
     capraia.modules.guava,
 ]
 capraia.modules.spock = [
-    'org.spockframework:spock-core:1.0-groovy-2.4@jar',
-    'org.hamcrest:hamcrest-core:1.3@jar',
-    'cglib:cglib-nodep:2.2.2@jar',
-    capraia.modules.groovy,
-    capraia.modules.junit,
-    capraia.modules.objenesis,
+    compile : [
+        capraia.modules.groovy,
+        capraia.modules.junit,
+        'org.spockframework:spock-core:1.1-groovy-2.4@jar',
+    ],
+    runtime : [
+        'net.bytebuddy:byte-buddy:1.7.9@jar',
+        'org.objenesis:objenesis:2.6@jar',
+    ],
 ]
 capraia.modules.httpcomponents = [
     'org.apache.httpcomponents:httpclient:4.2.1@jar',

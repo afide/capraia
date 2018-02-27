@@ -28,7 +28,7 @@ configurations {
 
 dependencies {
     testFixtureCompile(
-        project.capraia.modules.spock,
+        project.capraia.modules.spock.compile,
         project.capraia.modules.slf4j.api,
     )
     testFixtureRuntime project.capraia.modules.slf4j.impl
@@ -49,7 +49,7 @@ artifacts {
 
 task testFixtureTest(type:Test) {
     description = "Testing the 'testFixture' source set."
-    testClassesDir = project.sourceSets.testFixtureTest.output.classesDir
+    testClassesDirs = project.sourceSets.testFixtureTest.output.classesDirs
     classpath = project.sourceSets.testFixtureTest.runtimeClasspath
 }
 

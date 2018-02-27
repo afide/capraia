@@ -25,7 +25,7 @@ subprojects {
     task integTest(type: Test) {
         description = 'Runs the integration tests.'
         group = JavaBasePlugin.VERIFICATION_GROUP
-        testClassesDir = sourceSets.integTest.output.classesDir
+        testClassesDirs = sourceSets.integTest.output.classesDirs
         classpath = sourceSets.integTest.runtimeClasspath
 
         systemProperty 'node', System.getProperty('node')
@@ -35,7 +35,7 @@ subprojects {
      * Common integration test dependencies
      */
     dependencies {
-        integTestCompile capraia.modules.spock
+        integTestCompile capraia.modules.spock.compile
     }
     /*
      * Make Sonar aware of the new source set
