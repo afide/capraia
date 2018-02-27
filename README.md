@@ -31,14 +31,29 @@ $ ./gradlew tasks
 $ ./gradlew build
 ```
 
-#### Run the Counter Sample Application
-```
-$ ./gradlew :applications:capraia-counter:run
-```
-
 #### Run the Dummy Sample Application
 ```
 $ ./gradlew :applications:capraia-dummy:run
+```
+
+#### Run and integration test the Counter Sample Application
+```
+$ rm -Rf ~/.tendermint/
+$ tendermint init
+$ tendermint node
+$ ./gradlew :applications:capraia-counter:run
+$ ./gradlew :tests:capraia-protocol-test:integTest
+$ ./gradlew :tests:capraia-tendermint-test:integTest
+```
+
+#### Run and integration test the Ethermint Application
+```
+$ rm -Rf ~/.ethermint/
+$ TMROOT=~/.ethermint tendermint init
+$ ethermint --datadir ~/.ethermint init $GOPATH/src/github.com/tendermint/ethermint/dev/genesis.json
+$ cp -r $GOPATH/src/github.com/tendermint/ethermint/dev/keystore ~/.ethermint/keystore
+$ ethermint --datadir ~/.ethermint --rpc
+$ ./gradlew :tests:capraia-ethereum-test:integTest
 ```
 
 #### More Information
