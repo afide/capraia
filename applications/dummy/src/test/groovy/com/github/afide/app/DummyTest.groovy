@@ -2,7 +2,7 @@ package com.github.afide.app
 
 import com.github.afide.model.SimpleModel
 import com.github.jtendermint.jabci.types.Types
-import com.github.jtmsp.merkletree.byteable.ByteableLong
+import com.github.jtendermint.merkletree.byteable.types.ByteableLong
 import spock.lang.Shared
 import spock.lang.Specification
 

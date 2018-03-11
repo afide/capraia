@@ -2,9 +2,9 @@ package com.github.afide.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.afide.api.model.TxModel;
-import com.github.jtmsp.merkletree.IMerkleTree;
-import com.github.jtmsp.merkletree.MerkleTree;
-import com.github.jtmsp.merkletree.byteable.IByteable;
+import com.github.jtendermint.merkletree.IMerkleTree;
+import com.github.jtendermint.merkletree.MerkleTree;
+import com.github.jtendermint.merkletree.byteable.types.IByteable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;

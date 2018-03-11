@@ -1,9 +1,9 @@
 package com.github.afide.model
 
-import com.github.jtmsp.merkletree.byteable.ByteableLong
-import com.github.jtmsp.merkletree.byteable.ByteablePair
-import com.github.jtmsp.merkletree.byteable.ByteableString
-import com.github.jtmsp.merkletree.byteable.IByteable
+import com.github.jtendermint.merkletree.byteable.types.ByteableLong
+import com.github.jtendermint.merkletree.byteable.types.ByteablePair
+import com.github.jtendermint.merkletree.byteable.types.ByteableString
+import com.github.jtendermint.merkletree.byteable.types.IByteable
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -75,11 +75,11 @@ class SimpleModelTest extends Specification {
         cleanup: 'just print the tree'
         tree.tree.iterateNodes { node ->
             if (node.isLeafNode()) {
-                System.out.println(node.getKey().toPrettyString());
+                System.out.println(node.getKey().toPrettyString())
             } else {
-                System.out.println("tree node");
+                System.out.println("tree node")
             }
-            return false;
+            return false
         }
 
         where: 'the txs are of the supported differnt types'
