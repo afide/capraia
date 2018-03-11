@@ -9,3 +9,4 @@
 [submodule "modules/crypto"]
 	path = modules/crypto
 	url = https://github.com/afide/crypto.git
+	branch = master
