@@ -6,7 +6,8 @@ import com.github.jtendermint.merkletree.IMerkleTree;
 import com.github.jtendermint.merkletree.MerkleTree;
 import com.github.jtendermint.merkletree.byteable.types.IByteable;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.ParameterizedType;
 
 /**
@@ -96,12 +97,12 @@ public class SimpleModel<T extends IByteable> extends TxModel {
         return (long) tree.size();
     }
 
-    private T getBytable(byte[] tx) {
-        @SuppressWarnings("unchecked") Class<T> classOfT = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    @SuppressWarnings("unchecked") private T getBytable(byte[] tx) {
+        Class<T> classOfT = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         try {
-            return classOfT.getDeclaredConstructor(new Class[]{byte[].class}).newInstance((Object) tx);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            logger.warn("Unable to instantiate bytable type, got exception: " + e);
+            return (T) MethodHandles.lookup().findConstructor(classOfT, MethodType.methodType(void.class, byte[].class)).invoke(tx);
+        } catch (Throwable e) {
+            logger.warn("Unable to instantiate bytable type, got exception: {}", e);
         }
         return null;
     }

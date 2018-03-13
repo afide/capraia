@@ -11,6 +11,7 @@ subprojects {
                 project.capraia.modules.cli,
         )
         testCompile project.capraia.modules.spock.compile
+        testRuntime project.capraia.modules.spock.runtime
     }
     run {
         doFirst {
