@@ -85,7 +85,7 @@ public abstract class Application implements ABCIAPI, Runnable {
         try {
             data = objectMapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {
-            logger.error("Unable to serialize data field, got exception: " + e);
+            logger.error("Unable to serialize data field, got exception: {}", e);
         }
         ResponseInfo.Builder responseBuilder = ResponseInfo.newBuilder();
         responseBuilder.setVersion(version).setLastBlockHeight(lastBlockHeight).setLastBlockAppHash(ByteString.copyFrom(lastAppHash));
@@ -114,7 +114,7 @@ public abstract class Application implements ABCIAPI, Runnable {
         String message;
         byte[] tx = req.getTx().toByteArray();
         if (logger.isDebugEnabled()) {
-            logger.debug("Received tx value: " + byteArrayToHexSring(tx));
+            logger.debug("Received tx value: {}", byteArrayToHexSring(tx));
         }
         if (txModel.deliver(tx)) {
             message = "Delivered";
