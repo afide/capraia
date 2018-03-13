@@ -1,7 +1,8 @@
 package com.github.afide.app
 
 import com.github.afide.model.SimpleModel
-import com.github.jtendermint.jabci.types.Types
+import com.github.jtendermint.jabci.types.RequestInfo
+import com.github.jtendermint.jabci.types.ResponseInfo
 import com.github.jtendermint.merkletree.byteable.types.ByteableLong
 import spock.lang.Shared
 import spock.lang.Specification
@@ -21,10 +22,10 @@ class DummyTest extends Specification {
 
     def "test info"() {
         given: 'a valid request message'
-        Types.RequestInfo req = Types.RequestInfo.newBuilder().build()
+        RequestInfo req = RequestInfo.newBuilder().build()
 
         when: 'the request is executed'
-        Types.ResponseInfo res = app.requestInfo(req)
+        ResponseInfo res = app.requestInfo(req)
 
         then: 'we receive a valid response'
         res.data == '{"txModel":{"stop":false,"persist":false,"updated":false}}'

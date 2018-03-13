@@ -36,6 +36,7 @@ subprojects {
      */
     dependencies {
         integTestCompile project.capraia.modules.spock.compile
+        integTestRuntime project.capraia.modules.spock.runtime
     }
     /*
      * Make Sonar aware of the new source set

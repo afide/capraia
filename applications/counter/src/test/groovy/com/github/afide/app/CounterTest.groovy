@@ -1,6 +1,11 @@
 package com.github.afide.app
 
-import com.github.jtendermint.jabci.types.Types
+import com.github.jtendermint.jabci.types.RequestEcho
+import com.github.jtendermint.jabci.types.RequestInfo
+import com.github.jtendermint.jabci.types.RequestSetOption
+import com.github.jtendermint.jabci.types.ResponseEcho
+import com.github.jtendermint.jabci.types.ResponseInfo
+import com.github.jtendermint.jabci.types.ResponseSetOption
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -19,10 +24,10 @@ class CounterTest extends Specification {
 
     def "test echo"() {
         given: 'a valid request message'
-        Types.RequestEcho req = Types.RequestEcho.newBuilder().setMessage('xx').build()
+        RequestEcho req = RequestEcho.newBuilder().setMessage('xx').build()
 
         when: 'the request is executed'
-        Types.ResponseEcho res = app.requestEcho(req)
+        ResponseEcho res = app.requestEcho(req)
 
         then: 'we receive a valid response'
         res.message == 'xx'
@@ -30,10 +35,10 @@ class CounterTest extends Specification {
 
     def "test set option"() {
         given: 'a valid request message'
-        Types.RequestSetOption req = Types.RequestSetOption.newBuilder().setKey('serial').setValue('true').build()
+        RequestSetOption req = RequestSetOption.newBuilder().setKey('serial').setValue('true').build()
 
         when: 'the request is executed'
-        Types.ResponseSetOption res = app.requestSetOption(req)
+        ResponseSetOption res = app.requestSetOption(req)
 
         then: 'we receive a valid response'
         res.log == "Successfully updated field named 'serial'"
@@ -41,10 +46,10 @@ class CounterTest extends Specification {
 
     def "test info"() {
         given: 'a valid request message'
-        Types.RequestInfo req = Types.RequestInfo.newBuilder().build()
+        RequestInfo req = RequestInfo.newBuilder().build()
 
         when: 'the request is executed'
-        Types.ResponseInfo res = app.requestInfo(req)
+        ResponseInfo res = app.requestInfo(req)
 
         then: 'we receive a valid response'
         res.data == '{"txModel":{"stop":false,"serial":true,"txCount":0}}'

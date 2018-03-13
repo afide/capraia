@@ -18,7 +18,7 @@ class TendermintTest extends Specification {
             'broadcast_tx_async',
     ]
 
-    public "test 'abci_info'"() {
+    def "test 'abci_info'"() {
         given: 'a REST client'
         RESTClient client = new RESTClient( "http://${config.node.host.ip}:${config.node.host.port}")
 
@@ -30,15 +30,13 @@ class TendermintTest extends Specification {
         resp.status == 200
         resp.contentType == ContentType.JSON.toString()
         println "response payload - $resp.data"
-        resp.data.error == ''
-        def result = resp.data.result.pop()
-        resp.data.result == [113]
-        result.response.version == '0.1'
-        result.response.last_block_height > 0
-        result.response.data != null
+        resp.data.error == null
+        resp.data.result.response.version == '0.1'
+        resp.data.result.response.last_block_height > 0
+        resp.data.result.response.data != null
     }
 
-    public "test 'status'"() {
+    def "test 'status'"() {
         given: 'a REST client'
         RESTClient client = new RESTClient( "http://${config.node.host.ip}:${config.node.host.port}")
 
@@ -50,14 +48,12 @@ class TendermintTest extends Specification {
         resp.status == 200
         resp.contentType == ContentType.JSON.toString()
         println "response payload - $resp.data"
-        resp.data.error == ''
-        def result = resp.data.result.pop()
-        resp.data.result == [32]
-        result.latest_block_hash != null
-        result.latest_block_height > 0
+        resp.data.error == null
+        resp.data.result.latest_block_hash != null
+        resp.data.result.latest_block_height > 0
     }
 
-    @Unroll public "test '#method'"(String method) {
+    @Unroll def "test '#method'"(String method) {
         given: 'a REST client'
         RESTClient client = new RESTClient( "http://${config.node.host.ip}:${config.node.host.port}")
 
@@ -75,9 +71,8 @@ class TendermintTest extends Specification {
         then: 'we receive a valid response'
         resp.success
         resp.status == 200
-        resp.contentType == ContentType.JSON.toString()
         println "response payload - $resp.data"
-        resp.data.error == ''
+        resp.data == null
 
         where: 'we a are using valid methods'
         method << methods
