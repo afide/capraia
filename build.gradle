@@ -30,7 +30,6 @@ sonarqube {
         property 'sonar.host.url', 'https://sonarqube.com'
         property 'sonar.organization', 'afide'
         property 'sonar.login', 'b44b8ee515071e0be85dff14b536a12f112a461f'
-        property 'sonar.jacoco.reportPaths', 'build/jacoco/jacocoMerge.exec'
     }
 }
 /*
@@ -67,6 +66,16 @@ task jacocoReport(type: JacocoReport) {
     }
 }
 project.tasks.check.dependsOn project.tasks.jacocoReport
+/*
+ * Common configuration for sub-projects
+ */
+subprojects {
+    afterEvaluate {
+        sonarqube.properties {
+            property 'sonar.jacoco.reportPaths', file("$rootProject.buildDir/jacoco/jacocoMerge.exec")
+        }
+    }
+}
 /*
  * Common configuration for all projects
  */

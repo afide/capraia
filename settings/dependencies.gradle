@@ -48,12 +48,12 @@ capraia.modules.spock = [
     compile : [
         capraia.modules.groovy,
         capraia.modules.junit,
-        'org.hamcrest:hamcrest-core:1.3@jar',
         'org.spockframework:spock-core:1.1-groovy-2.4@jar',
     ],
     runtime : [
         'net.bytebuddy:byte-buddy:1.7.9@jar',
         'org.objenesis:objenesis:2.6@jar',
+        'org.hamcrest:hamcrest-core:1.3@jar',
     ],
 ]
 capraia.modules.httpcomponents = [
