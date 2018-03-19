@@ -67,6 +67,16 @@ task jacocoReport(type: JacocoReport) {
 }
 project.tasks.check.dependsOn project.tasks.jacocoReport
 /*
+ * Common configuration for sub-projects
+ */
+subprojects {
+    afterEvaluate {
+        sonarqube.properties {
+            property 'sonar.jacoco.reportPath', file("$rootProject.buildDir/jacoco/jacocoMerge.exec")
+        }
+    }
+}
+/*
  * Common configuration for all projects
  */
 allprojects {
