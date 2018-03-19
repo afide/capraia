@@ -39,6 +39,33 @@ description = 'A sample multi-project layout for Tendermint applications.'
 apply from: 'settings/dependencies.gradle'
 apply from: 'settings/groups.gradle'
 apply from: 'settings/ide-idea.gradle'
+apply plugin: 'base'
+apply plugin: 'jacoco'
+task jacocoMerge(type: JacocoMerge) {
+    doFirst {
+        executionData = executionData.filter { it.exists() }
+    }
+}
+task jacocoReport(type: JacocoReport) {
+    dependsOn project.tasks.jacocoMerge
+
+    executionData project.tasks.jacocoMerge.destinationFile
+    sourceDirectories = files()
+    classDirectories = files()
+
+    subprojects {
+        plugins.withType(JavaPlugin) {
+            sourceDirectories += files(sourceSets.main.allSource.srcDirs)
+            classDirectories += files(
+                files(project.sourceSets.main.output).collect {
+                    // Exclude generated sources
+                    fileTree(dir: it, exclude: ['common/**', 'com/google/protobuf/**', 'com/github/jtendermint/jabci/types/**'])
+                }
+            )
+        }
+    }
+}
+project.tasks.check.dependsOn project.tasks.jacocoReport
 /*
  * Common configuration for all projects
  */

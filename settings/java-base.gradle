@@ -16,7 +16,8 @@ tasks.withType(AbstractCompile) { AbstractCompile compile ->
 }
 
 // Configuring JaCoCo reporting
-tasks.withType(JacocoReport) { JacocoReport jacocoTestReport ->
-    jacocoTestReport.reports.xml.enabled = true
-    project.tasks.check.dependsOn jacocoTestReport
+tasks.withType(Test) { Test test ->
+    if (test.name != 'integTest') {
+        project.rootProject.tasks.jacocoMerge.executionData test
+    }
 }
